@@ -87,7 +87,7 @@ function! go#complete#GetInfo()
     let filename = s:gocodeCurrentBuffer()
     let result = s:gocodeCommand('autocomplete',
                 \ [s:gocodeCurrentBufferOpt(filename), '-f=godit'],
-                \ [go#tool#Cygpath(expand('%:p')),, s:gocodeCursor()])
+                \ [go#tool#Cygpath(expand('%:p')), s:gocodeCursor()])
     call delete(filename)
 
     " first line is: Charcount,,NumberOfCandidates, i.e: 8,,1

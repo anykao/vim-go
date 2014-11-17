@@ -152,6 +152,8 @@ function! s:get_browser_command()
     if go_play_browser_command == ''
         if has('win32') || has('win64')
             let go_play_browser_command = '!start rundll32 url.dll,FileProtocolHandler %URL%'
+        elseif has('win32unix')
+            let go_play_browser_command = 'cygstart %URL%'
         elseif has('mac') || has('macunix') || has('gui_macvim') || system('uname') =~? '^darwin'
             let go_play_browser_command = 'open %URL%'
         elseif executable('xdg-open')
