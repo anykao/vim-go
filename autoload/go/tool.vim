@@ -1,3 +1,13 @@
+function! go#tool#Cygpath(path)
+    if has ("win32unix")
+        let path = system('cygpath -m "' . a:path . '"')
+        let path = substitute(path, '\n$', '', '')
+    else
+        let path = a:path
+    endif
+    return path
+endfunction
+
 function! go#tool#Files()
     if has ("win32")
         let command = 'go list -f "{{range $f := .GoFiles}}{{$.Dir}}/{{$f}}{{printf \"\n\"}}{{end}}"'

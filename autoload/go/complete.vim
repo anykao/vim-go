@@ -60,7 +60,7 @@ fu! s:gocodeCommand(cmd, preargs, args)
 endf
 
 fu! s:gocodeCurrentBufferOpt(filename)
-    return '-in=' . a:filename
+    return '-in=' . go#tool#Cygpath(a:filename)
 endf
 
 fu! s:gocodeCursor()
@@ -78,7 +78,7 @@ fu! s:gocodeAutocomplete()
     let filename = s:gocodeCurrentBuffer()
     let result = s:gocodeCommand('autocomplete',
                 \ [s:gocodeCurrentBufferOpt(filename), '-f=vim'],
-                \ [expand('%:p'), s:gocodeCursor()])
+                \ [go#tool#Cygpath(expand('%:p')), s:gocodeCursor()])
     call delete(filename)
     return result
 endf
@@ -87,7 +87,7 @@ function! go#complete#GetInfo()
     let filename = s:gocodeCurrentBuffer()
     let result = s:gocodeCommand('autocomplete',
                 \ [s:gocodeCurrentBufferOpt(filename), '-f=godit'],
-                \ [expand('%:p'), s:gocodeCursor()])
+                \ [go#tool#Cygpath(expand('%:p')),, s:gocodeCursor()])
     call delete(filename)
 
     " first line is: Charcount,,NumberOfCandidates, i.e: 8,,1

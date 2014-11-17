@@ -5,7 +5,7 @@ endif
 function! go#cmd#Run(bang, ...)
     let default_makeprg = &makeprg
     if !len(a:000)
-        let &makeprg = "go run " . join(go#tool#Files(), ' ')
+        let &makeprg = "go run " . expand('%')
     else
         let &makeprg = "go run " . expand(a:1)
     endif
