@@ -1,7 +1,6 @@
-function! go#tool#Cygpath(path)
+function! go#tool#Winpath(path)
     if has ("win32unix")
-        let path = system('cygpath -m "' . a:path . '"')
-        let path = substitute(path, '\n$', '', '')
+        let path = substitute(system('cygpath -m "' . a:path . '"'), '\n$', '', '')
     else
         let path = a:path
     endif

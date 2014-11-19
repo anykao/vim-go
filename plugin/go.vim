@@ -35,8 +35,13 @@ function! GetBinPath()
     elseif $GOBIN != ""
         let bin_path = $GOBIN
     elseif $GOPATH != ""
+        if has("win32") || has("win32unix")
+            let sep = ";"
+        else
+            let set = ":"
+        endif
         " take care of multi element GOPATH's
-        let go_paths = split($GOPATH, ":")
+        let go_paths = split($GOPATH, sep)
 
         if len(go_paths) == 1 
             " one single PATH
@@ -53,6 +58,9 @@ function! GetBinPath()
     " add trailing slash if there is no one
     if bin_path[-1:-1] != '/' | let bin_path .= '/' | endif
 
+    if has("win32unix")
+        let bin_path = substitute(system('cygpath -m "' . bin_path . '"'), '\n$', '', '')
+    endif
     return bin_path
 endfunction
 
